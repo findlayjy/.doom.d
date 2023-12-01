@@ -4,9 +4,9 @@
 
 ;; (setq doom-theme 'doom-one)
 
-(when (file-exists-p (concat doom-private-dir "images"))
+(when (file-exists-p (concat doom-user-dir "images"))
   (setq +doom-dashboard-banner-padding '(0 . 2)
-        fancy-splash-image (concat doom-private-dir "images/medium-emacs-logo.png")))
+        fancy-splash-image (concat doom-user-dir "images/medium-emacs-logo.png")))
 
 (defun minimal-banner-fn ()
   (let* ((banner '("██████╗"
@@ -32,14 +32,14 @@
      doom-variable-pitch-font (font-spec :family "Source Sans Pro" :size 14)
                )
 
-(setq doom-unicode-font (font-spec :family "JetBrainsMono Nerd Font" :size 11))
+(setq doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 11))
 
 (setq display-line-numbers-type t)
 
 (setq evil-split-window-below t
       evil-vsplit-window-right t)
 
-(setq xterm-mouse-mode 1)
+;; (setq xterm-mouse-mode 1)
 
 ;; (when (eq system-type 'windows-nt)
   (setq evil-want-fine-undo t)
@@ -114,7 +114,8 @@
                              ("Specify your own template file" . "")))
 
 (defun new-latex ()
-  "Make a new LaTeX file based on a template. Asks for the template, then for a filename to copy it to."
+  "Make a new LaTeX file based on a template.
+   Asks for the template, then for a filename to copy it to."
   (interactive)
   (let* ((template (completing-read "Choose template: " latex-templates-list))
          (template-filename (cdr (assoc template latex-templates-list))))
@@ -231,11 +232,12 @@
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
-(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+;; (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 
 (setq org-superstar-special-todo-items t)
 
-(setq org-superstar-todo-bullet-alist
+(after! org-superstar
+  (setq org-superstar-todo-bullet-alist
       '(("TODO" . ?○)
         ("SOMEDAY" . ?○)
         ("READING" . ?○)
@@ -243,6 +245,7 @@
         ("DONE" . ?●)
         ("CANCELLED" . ?⦻)
         ))
+  )
 
 (setq org-superstar-headline-bullets-list '("⁖"))
 ;; (setq org-superstar-headline-bullets-list '("◉"))
@@ -259,7 +262,7 @@
        (let
            ((deadline (org-get-deadline-time (point))))
          (if deadline
-             (concat "(" (org-format-time-string "%d %b '%y" deadline) ")")
+             (concat "(" (format-time-string "%d %b '%y" deadline) ")")
            (concat (make-string 5 ?\s) "-"))
          )
        )
@@ -278,7 +281,7 @@
   "Return string of length SIZE either containing the days to the
   deadline if there is one, or nothing if not."
   (let* ((deadline (org-get-deadline-time (point)))
-         (days-num (org-time-stamp-to-now (org-format-time-string "%Y-%m-%d" deadline)))
+         (days-num (org-time-stamp-to-now (format-time-string "%Y-%m-%d" deadline)))
          (days-str (if deadline
                        (concat (number-to-string days-num) "d")
                      ""
@@ -380,7 +383,7 @@ and returns -1 if a is before b, or +1 if a is after b"
        (cond
         ((looking-at-p block-re)
          (when (< content-line-count 2)
-           (delete-region start-pos (1+ (point-at-bol))))
+           (delete-region start-pos (1+ (line-beginning-position))))
          (setq start-pos (point))
          (forward-line)
          (setq content-line-count (if (looking-at-p blank-line-re) 0 1)))
@@ -392,7 +395,7 @@ and returns -1 if a is before b, or +1 if a is after b"
      ;; The above strategy can leave a separator line at the beginning
      ;; of the buffer.
      (when (looking-at-p block-re)
-       (delete-region (point) (1+ (point-at-eol))))))
+       (delete-region (point) (1+ (line-end-position))))))
  (setq buffer-read-only t))
 
 (add-hook 'org-agenda-finalize-hook #'org-agenda-delete-empty-blocks)

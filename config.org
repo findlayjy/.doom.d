@@ -30,9 +30,9 @@ This is the default theme:
 ** Changing the image on the dashboard
 This replaces the default DOOM logo with the standard Emacs one, located in =~/.config/doom/images=.
 #+BEGIN_SRC emacs-lisp
-(when (file-exists-p (concat doom-private-dir "images"))
+(when (file-exists-p (concat doom-user-dir "images"))
   (setq +doom-dashboard-banner-padding '(0 . 2)
-        fancy-splash-image (concat doom-private-dir "images/medium-emacs-logo.png")))
+        fancy-splash-image (concat doom-user-dir "images/medium-emacs-logo.png")))
 #+END_SRC
 
 This replaces the DOOM ASCII banner, which appears when running Emacs in the terminal.
@@ -83,7 +83,7 @@ Book? Plantin? /Garamond??/
 
 Setting a unicode font that has the right power line symbols for my terminal customisation.
 #+begin_src emacs-lisp
-(setq doom-unicode-font (font-spec :family "JetBrainsMono Nerd Font" :size 11))
+(setq doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 11))
 #+end_src
 
 * UI preferences
@@ -104,8 +104,9 @@ so that isn't the behaviour I want.
       evil-vsplit-window-right t)
 #+end_src
 ** Enable mouse in terminal Emacs
+Not needed with Doom's build in =tty= module?
 #+begin_src emacs-lisp
-(setq xterm-mouse-mode 1)
+;; (setq xterm-mouse-mode 1)
 #+end_src
 
 ** Change undo behaviour
@@ -252,7 +253,8 @@ it uses the value of the =cdr= and concatenates it with the value of
 argument to ~copy-file~ asks for confirmation if the file already exists.)
 #+begin_src emacs-lisp
 (defun new-latex ()
-  "Make a new LaTeX file based on a template. Asks for the template, then for a filename to copy it to."
+  "Make a new LaTeX file based on a template.
+   Asks for the template, then for a filename to copy it to."
   (interactive)
   (let* ((template (completing-read "Choose template: " latex-templates-list))
          (template-filename (cdr (assoc template latex-templates-list))))
@@ -504,9 +506,9 @@ Don't include the footer with name/publication time etc. at the end of every HTM
 ** Org-superstar
 =org-superstar= helps to prettify Org mode.
 
-Activate =superstar-mode= when =org-mode= is activated.
+Activate =superstar-mode= when =org-mode= is activated (not necessary now I'm using Doom's built-in =+pretty= flag in [[file:~/.dotfiles/.config/doom/init.el][init.el]]).
 #+begin_src emacs-lisp
-(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+;; (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 #+end_src
 
 Allow special bullets for different TODO keywords.
@@ -516,7 +518,8 @@ Allow special bullets for different TODO keywords.
 
 Change TODO items to an open bullet, WAITING to a half full one, DONE to a full one, and CANCELLED to a crossed-through empty bullet.
 #+begin_src emacs-lisp
-(setq org-superstar-todo-bullet-alist
+(after! org-superstar
+  (setq org-superstar-todo-bullet-alist
       '(("TODO" . ?○)
         ("SOMEDAY" . ?○)
         ("READING" . ?○)
@@ -524,6 +527,7 @@ Change TODO items to an open bullet, WAITING to a half full one, DONE to a full 
         ("DONE" . ?●)
         ("CANCELLED" . ?⦻)
         ))
+  )
 #+end_src
 
 Change the bullet point shape used for all normal headers.
@@ -562,7 +566,7 @@ one, otherwise returns "-".
        (let
            ((deadline (org-get-deadline-time (point))))
          (if deadline
-             (concat "(" (org-format-time-string "%d %b '%y" deadline) ")")
+             (concat "(" (format-time-string "%d %b '%y" deadline) ")")
            (concat (make-string 5 ?\s) "-"))
          )
        )
@@ -591,7 +595,7 @@ string if there is no deadline, padded to length =SIZE=.
   "Return string of length SIZE either containing the days to the
   deadline if there is one, or nothing if not."
   (let* ((deadline (org-get-deadline-time (point)))
-         (days-num (org-time-stamp-to-now (org-format-time-string "%Y-%m-%d" deadline)))
+         (days-num (org-time-stamp-to-now (format-time-string "%Y-%m-%d" deadline)))
          (days-str (if deadline
                        (concat (number-to-string days-num) "d")
                      ""
@@ -726,7 +730,7 @@ This function (from [[https:lists.gnu.org/archive/html/emacs-orgmode/2015-06/msg
         (cond
          ((looking-at-p block-re)
           (when (< content-line-count 2)
-            (delete-region start-pos (1+ (point-at-bol))))
+            (delete-region start-pos (1+ (line-beginning-position))))
           (setq start-pos (point))
           (forward-line)
           (setq content-line-count (if (looking-at-p blank-line-re) 0 1)))
@@ -738,7 +742,7 @@ This function (from [[https:lists.gnu.org/archive/html/emacs-orgmode/2015-06/msg
       ;; The above strategy can leave a separator line at the beginning
       ;; of the buffer.
       (when (looking-at-p block-re)
-        (delete-region (point) (1+ (point-at-eol))))))
+        (delete-region (point) (1+ (line-end-position))))))
   (setq buffer-read-only t))
 #+end_src
 
