@@ -215,13 +215,22 @@ folders.
 #+end_src
 
 * LaTeX
+** Fix clash with ~python +pyenv~ module
+The Doom Python pyenv module maps =C-c C-s= to ~pyenv-mode-set~ and overwrites the same keybinding for ~LaTeX-section~. Since I use LaTeX more than I use pyenv, let's fix that.
+#+begin_src emacs-lisp
+  ;; (map! :after python
+  ;;       :mode LaTeX-mode-map
+  ;;       "C-c C-s" #'LaTeX-section)
+  (map! :after python
+        "C-c C-s" nil)
+#+end_src
+
 ** Stop flycheck mode operating in LaTeX modes
 Apparently a lot of how I write LaTeX upsets =flycheck=, so I just end up with a
 bunch of irrelevant error messages. This disables it.
 #+begin_src emacs-lisp
 (setq flycheck-global-modes '(not LaTeX-mode latex-mode))
 #+end_src
-
 ** Turn off ~rainbow-delimiters~
 It seems to bug out every so often and highlight /every/ parenthesis going ...
 #+begin_src emacs-lisp

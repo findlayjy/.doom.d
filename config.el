@@ -99,6 +99,12 @@
 
 (setq projectile-track-known-projects-automatically nil)
 
+;; (map! :after python
+;;       :mode LaTeX-mode-map
+;;       "C-c C-s" #'LaTeX-section)
+(map! :after python
+      "C-c C-s" nil)
+
 (setq flycheck-global-modes '(not LaTeX-mode latex-mode))
 
 (after! tex
