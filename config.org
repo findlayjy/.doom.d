@@ -581,6 +581,18 @@ one, otherwise returns "-".
        )
 #+end_src
 
+~(print-scheduled)~ does the same for an entry's scheduled time.
+#+begin_src emacs-lisp
+(defun print-scheduled () "Return an org-mode entry's scheduled time if it has one" ;;
+       (let
+           ((scheduled-time (org-get-scheduled-time (point))))
+         (if scheduled-time
+             (concat "(" (format-time-string "%d %b '%y" scheduled-time) ")")
+           (concat (make-string 5 ?\s) "-"))
+         )
+       )
+#+end_src
+
 ~(org-get-padded-deadline SIZE)~ returns the result of ~print-deadline~ in the
 form of a string whose length is =SIZE=, i.e. either padded or trimmed as
 necessary.

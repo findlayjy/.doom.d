@@ -273,6 +273,15 @@
          )
        )
 
+(defun print-scheduled () "Return an org-mode entry's scheduled time if it has one" ;;
+       (let
+           ((scheduled-time (org-get-scheduled-time (point))))
+         (if scheduled-time
+             (concat "(" (format-time-string "%d %b '%y" scheduled-time) ")")
+           (concat (make-string 5 ?\s) "-"))
+         )
+       )
+
 (defun org-get-padded-deadline (size)
   "Return string of length SIZE whether it contains a deadline
   timestamp or whichever message is chosen for items without
