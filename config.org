@@ -380,6 +380,11 @@ Allow shift-select to work in most contexts.
 (setq org-support-shift-select t)
 #+end_src
 
+Enable the use of ~xdg-open~ for ~browse-url~.
+#+begin_src emacs-lisp
+(setq browse-url-can-use-xdg-open t)
+#+end_src
+
 Change filepath links to always be absolute. (Possible values are =absolute= and
 =relative=, with the obvious meanings, along with =noabbrev=, which is like =absolute=
 except that it doesn't abbreviate the home directory as =~=, and =adaptive=, which

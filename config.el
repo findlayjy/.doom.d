@@ -171,6 +171,8 @@
 
 (setq org-support-shift-select t)
 
+(setq browse-url-can-use-xdg-open t)
+
 (setq org-link-file-path-type 'absolute)
 
 (after! org
