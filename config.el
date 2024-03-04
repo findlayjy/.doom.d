@@ -97,6 +97,11 @@
    )
  )
 
+(after! pyvenv
+ (setq pyvenv-mode-line-indicator
+        '(pyvenv-virtual-env-name ("[venv:" pyvenv-virtual-env-name "] ")))
+  (pyvenv-mode +1))
+
 (setq projectile-track-known-projects-automatically nil)
 
 ;; (map! :after python
@@ -452,14 +457,14 @@ and returns -1 if a is before b, or +1 if a is after b"
                          (org-agenda-sorting-strategy '((todo user-defined-up)))
                          )
                      )
-            (todo "TODO|INPROG" (
+            (tags "TODO=\"TODO\"|TODO=\"INPROG\"|PRIORITY=\"A\"+TODO=\"READING\"" (
                          (org-agenda-overriding-header "Professional TODOs")
                          ;; Using a regexp to match things I don't want in my professional TODOs: in this case, the dir my-wiki, along with the subdir daily, and my personal.org file.
                          ;; I don't just specify work.org explicitly, as I want to allow other project files to be included.
                          (org-agenda-files (cl-remove-if (lambda (x) (string-match "\\(?:my-wiki\\(?:/daily\\)?\\|personal\\.org\\)" x)) org-agenda-files))
-                         (org-agenda-prefix-format '((todo . "%(org-agenda-todo-custom-prefix)")))
+                         (org-agenda-prefix-format '((tags . "%(org-agenda-todo-custom-prefix)")))
                          ;;(org-agenda-cmp-user-defined 'org-deadline-cmp-3)
-                         (org-agenda-sorting-strategy '((todo user-defined-up)))
+                         (org-agenda-sorting-strategy '((t user-defined-up)))
                          )
                   )
             (todo "BLOCKED" (
