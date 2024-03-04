@@ -75,3 +75,11 @@
 
 ;; trello integration
 ;; (package! org-trello)
+
+(package! pyvenv)
+
+;; from https://github.com/purcell/exec-path-from-shell
+(package! exec-path-from-shell)
+
+;; Quarto (https://quarto.org/), from https://github.com/quarto-dev/quarto-emacs
+(package! quarto-mode)
