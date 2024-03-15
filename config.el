@@ -464,7 +464,7 @@ and returns -1 if a is before b, or +1 if a is after b"
                          (org-agenda-files (cl-remove-if (lambda (x) (string-match "\\(?:my-wiki\\(?:/daily\\)?\\|personal\\.org\\)" x)) org-agenda-files))
                          (org-agenda-prefix-format '((tags . "%(org-agenda-todo-custom-prefix)")))
                          ;;(org-agenda-cmp-user-defined 'org-deadline-cmp-3)
-                         (org-agenda-sorting-strategy '((t user-defined-up)))
+                         (org-agenda-sorting-strategy '((tags user-defined-up)))
                          )
                   )
             (todo "BLOCKED" (
@@ -586,6 +586,29 @@ and returns -1 if a is before b, or +1 if a is after b"
      ("#[1-9]" . font-lock-type-face)
      )                                       ;; extra highlights
    '("\\.dat$")                              ;; files for which to activate this mode
+   '(rainbow-delimiters-mode)                ;; other functions to call
+   "A mode for the UNLU project rule file"   ;; doc string for this mode
+ )
+
+(define-generic-mode
+   'grs-mode                                 ;; name of the mode to create
+   '("%")                              ;; comments start with '%'
+   '("package" "rule" "pattern" "strat"
+     "commands" "with" "without" "del_feat"
+     "Pick" "Alt" "Onf" "Seq" "Iter" "If" "Try") ;; some keywords
+   '(
+     ("![\\{)a-z ]" . font-lock-variable-name-face)
+     ("\\^" . font-lock-variable-name-face)
+     ("=" . font-lock-builtin-face)
+     ("->" . font-lock-builtin-face)
+     (";" . font-lock-builtin-face)
+     ("+" . font-lock-builtin-face)
+     ("|" . font-lock-builtin-face)
+     ("!" . font-lock-negation-char-face)
+     ;; ("\\\\[a-zA-Z]" . font-lock-constant-face)
+     ("#[1-9]" . font-lock-type-face)
+     )                                       ;; extra highlights
+   '("\\.grs$")                              ;; files for which to activate this mode
    '(rainbow-delimiters-mode)                ;; other functions to call
    "A mode for the UNLU project rule file"   ;; doc string for this mode
  )
