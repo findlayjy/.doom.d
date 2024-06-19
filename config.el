@@ -561,7 +561,7 @@ and returns -1 if a is before b, or +1 if a is after b"
            "* TODO %?")
           ;;
           ("r" "READING item" entry (file+headline "work.org" "Reading list")
-           "* READING %?")
+           "* READING [#A] %?")
           ))
   )
 
@@ -595,6 +595,7 @@ and returns -1 if a is before b, or +1 if a is after b"
    '("%")                              ;; comments start with '%'
    '("package" "rule" "pattern" "strat"
      "commands" "with" "without" "del_feat"
+     "add_edge" "del_edge"
      "Pick" "Alt" "Onf" "Seq" "Iter" "If" "Try") ;; some keywords
    '(
      ("![\\{)a-z ]" . font-lock-variable-name-face)

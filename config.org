@@ -932,6 +932,7 @@ https://stackoverflow.com/a/24787118)
 
 My capture templates -- simple for now: TODO entries for personal and
 professional tasks, and one to add something to my (professional) reading list
+(with =[#A]= priority so it appears on the agenda view).
 #+begin_src emacs-lisp
 (after! org
   (setq org-capture-templates
@@ -943,10 +944,11 @@ professional tasks, and one to add something to my (professional) reading list
            "* TODO %?")
           ;;
           ("r" "READING item" entry (file+headline "work.org" "Reading list")
-           "* READING %?")
+           "* READING [#A] %?")
           ))
   )
 #+end_src
+
 
 ** Org-roam
 Set the =org-roam= directory:
@@ -987,6 +989,7 @@ Adding some syntax highlighting to GRS files for Grew graph rewriting.
       '("%")                              ;; comments start with '%'
       '("package" "rule" "pattern" "strat"
         "commands" "with" "without" "del_feat"
+        "add_edge" "del_edge"
         "Pick" "Alt" "Onf" "Seq" "Iter" "If" "Try") ;; some keywords
       '(
         ("![\\{)a-z ]" . font-lock-variable-name-face)
