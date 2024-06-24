@@ -83,3 +83,6 @@
 
 ;; Quarto (https://quarto.org/), from https://github.com/quarto-dev/quarto-emacs
 (package! quarto-mode)
+
+;; Pinning a specific version of org-mode to try to fix some org-latex issues
+(package! org :pin "0e743d0")
