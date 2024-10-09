@@ -245,6 +245,10 @@
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
+(use-package! ox-extra
+  :config
+  (ox-extras-activate '(ignore-headlines)))
+
 ;; (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 
 (setq org-superstar-special-todo-items t)

@@ -526,6 +526,13 @@ Don't include the footer with name/publication time etc. at the end of every HTM
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 #+end_src
+
+Allowing ignoring of headlines when exporting (but retaining their contents -- good for adding structure like the bibliography or org-specific variables or properties):
+#+begin_src emacs-lisp
+(use-package! ox-extra
+  :config
+  (ox-extras-activate '(ignore-headlines)))
+#+end_src
 ** Org-superstar
 =org-superstar= helps to prettify Org mode.
 
@@ -948,7 +955,6 @@ professional tasks, and one to add something to my (professional) reading list
           ))
   )
 #+end_src
-
 
 ** Org-roam
 Set the =org-roam= directory:
