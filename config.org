@@ -206,6 +206,17 @@ Settings for opening links in Org files.
    )
  )
 #+end_src
+** Re-adding =drag-stuff= package
+This was removed in a Doom update (see discussion [[https://www.reddit.com/r/DoomEmacs/comments/1fnf4j8/how_do_i_move_a_selection_up_or_down/][here]]), but I am used to it, so reactivating the relevant keybinds here:
+#+begin_src emacs-lisp
+(use-package! drag-stuff
+   :defer t
+   :init
+  (map! "<M-up>"    #'drag-stuff-up
+        "<M-down>"  #'drag-stuff-down
+        "<M-left>"  #'drag-stuff-left
+        "<M-right>" #'drag-stuff-right))
+#+end_src
 * Python
 ** Getting python to use a virtual environment
 From [[https://fredrikmeyer.net/2020/08/26/emacs-python-venv.html][here]].

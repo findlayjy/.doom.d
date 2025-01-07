@@ -86,3 +86,6 @@
 
 ;; Pinning a specific version of org-mode to try to fix some org-latex issues
 (package! org :pin "0e743d0")
+
+;; Re-adding the drag-stuff package since I am used to it
+(package! drag-stuff)
