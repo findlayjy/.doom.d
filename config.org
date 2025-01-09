@@ -245,6 +245,11 @@ The Doom Python pyenv module maps =C-c C-s= to ~pyenv-mode-set~ and overwrites t
         "C-c C-s" nil)
 #+end_src
 
+** Make ~latex-mode~ run ~LaTeX-mode~
+#+begin_src emacs-lisp
+(defalias 'latex-mode 'LaTeX-mode)
+#+end_src
+
 ** Stop flycheck mode operating in LaTeX modes
 Apparently a lot of how I write LaTeX upsets =flycheck=, so I just end up with a
 bunch of irrelevant error messages. This disables it.

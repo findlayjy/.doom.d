@@ -118,6 +118,8 @@
 (map! :after python
       "C-c C-s" nil)
 
+(defalias 'latex-mode 'LaTeX-mode)
+
 (setq flycheck-global-modes '(not LaTeX-mode latex-mode))
 
 (after! tex
