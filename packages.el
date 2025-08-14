@@ -51,7 +51,8 @@
 
 ;; Nord theme
 (package! nord-emacs
-  :recipe (:host github :repo "arcticicestudio/nord-emacs"))
+;;  :recipe (:host github :repo "arcticicestudio/nord-emacs"))
+  :recipe (:host github :repo "nordtheme/emacs"))
 
 ;;Harry R. Schwartz's recommended theme (github.com/hrs)
 ;; (package! solarized-theme)
@@ -89,3 +90,11 @@
 
 ;; Re-adding the drag-stuff package since I am used to it
 (package! drag-stuff)
+
+;; lfg-mode for working in XLE
+;; (package! lfg-mode
+;;   :recipe (:local-repo "~/.config/doom/packages/lfg-mode"
+;;                        :files ("lfg-mode.el")
+;;                        :type nil))
+
+(package! org-superstar)

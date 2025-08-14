@@ -118,7 +118,8 @@
 (map! :after python
       "C-c C-s" nil)
 
-(defalias 'latex-mode 'LaTeX-mode)
+;; (defalias 'latex-mode 'LaTeX-mode) ; did not work
+(add-to-list 'auto-mode-alist '("\\.tex\\'" . LaTeX-mode))
 
 (setq flycheck-global-modes '(not LaTeX-mode latex-mode))
 
@@ -259,7 +260,9 @@
   :config
   (ox-extras-activate '(ignore-headlines)))
 
-;; (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+;; (use-package! org-superstar)
+
+(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 
 (setq org-superstar-special-todo-items t)
 
@@ -627,3 +630,6 @@ and returns -1 if a is before b, or +1 if a is after b"
    '(rainbow-delimiters-mode)                ;; other functions to call
    "A mode for the UNLU project rule file"   ;; doc string for this mode
  )
+
+;; (use-package! lfg-mode)
+(load! "lisp/lfg-mode")

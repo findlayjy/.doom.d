@@ -245,10 +245,11 @@ The Doom Python pyenv module maps =C-c C-s= to ~pyenv-mode-set~ and overwrites t
         "C-c C-s" nil)
 #+end_src
 
-** Make ~latex-mode~ run ~LaTeX-mode~
+** Associate .tex files with ~LaTeX-mode~ not ~latex-mode~
 (Issue started with update on 7/1/25.)
 #+begin_src emacs-lisp
-(defalias 'latex-mode 'LaTeX-mode)
+;; (defalias 'latex-mode 'LaTeX-mode) ; did not work
+(add-to-list 'auto-mode-alist '("\\.tex\\'" . LaTeX-mode))
 #+end_src
 
 ** Stop flycheck mode operating in LaTeX modes
@@ -552,10 +553,13 @@ Allowing ignoring of headlines when exporting (but retaining their contents -- g
 #+end_src
 ** Org-superstar
 =org-superstar= helps to prettify Org mode.
+#+begin_src emacs-lisp
+;; (use-package! org-superstar)
+#+end_src
 
 Activate =superstar-mode= when =org-mode= is activated (not necessary now I'm using Doom's built-in =+pretty= flag in [[file:~/.dotfiles/.config/doom/init.el][init.el]]).
 #+begin_src emacs-lisp
-;; (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 #+end_src
 
 Allow special bullets for different TODO keywords.
@@ -1030,4 +1034,9 @@ Adding some syntax highlighting to GRS files for Grew graph rewriting.
       '(rainbow-delimiters-mode)                ;; other functions to call
       "A mode for the UNLU project rule file"   ;; doc string for this mode
     )
+#+end_src
+* XLE
+#+begin_src emacs-lisp
+;; (use-package! lfg-mode)
+(load! "lisp/lfg-mode")
 #+end_src
